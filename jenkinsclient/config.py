@@ -1,14 +1,11 @@
 import platform
-
-import yaml
-import json
 import os
 import subprocess
 
 CONFIG_TEMPLATE = """jenkins_servers:
 - name: default
-  url: http://localhost
-  username: ming
+  url: http://localhost:8080/jenkins
+  username: admin
   token: '1'
 use: default
 """
