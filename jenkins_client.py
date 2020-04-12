@@ -1,4 +1,5 @@
 import fire
+from jenkinsclient.build import Build
 from jenkinsclient.config import Config
 from jenkinsclient.job import Job
 from jenkinsclient.plugin import Plugin
@@ -10,6 +11,7 @@ class JenkinsClient(object):
     Jenkins命令行客户端
     """
     def __init__(self):
+        self.build = Build()
         self.config = Config()
         self.job = Job()
         self.plugin = Plugin()
