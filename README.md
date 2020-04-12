@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/hummerstudio/jenkinsclient.svg?branch=master)](https://travis-ci.com/hummerstudio/jenkinsclient)
+
 # JenkinsClient
 
 A powerful cross-platform Jenkins command-line client which supports multiple instances of Jennkins.
