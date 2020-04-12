@@ -28,6 +28,14 @@ class JenkinsClient(object):
         """
         return Plugin().ls()
 
+    def version(self):
+        """
+        显示Jenkins服务器版本号
+        """
+        server = jenkins_server.get_jenkins_server(type='jenkinsapi')
+        version = server.version
+        return 'Jenkins server version: %s' % version
+
     def whoami(self):
         """
         显示当前用户
