@@ -52,9 +52,9 @@ class Job(object):
         server.enable_job(job_name)
         return '启用任务%s成功' % job_name
 
-    def exists(self, job_name):
+    def has(self, job_name):
         """
-        判断任务是否存在
+        查看任务是否已存在
         """
         server = jenkins_server.get_jenkins_server()
         exists = server.job_exists(job_name)
