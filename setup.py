@@ -1,11 +1,17 @@
 import setuptools
 
+with open("README.md", "r") as readme:
+    long_description = readme.read()
+
 setuptools.setup(
     name='jenkinsclient',
-    version='0.1',
+    version='0.1.2',
     author="TangMing",
     author_email="hummerstudio@163.com",
-    description="A powerful Jenkins command line client.",
+    description="A powerful cross-platform Jenkins command-line client which supports multiple instances of Jennkins.",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url='https://github.com/hummerstudio/jenkinsclient',
     packages=setuptools.find_packages(),
     py_modules=['jenkins_client'],
     classifiers=[
@@ -15,7 +21,7 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        'fire', 'requests', 'jenkins', 'PyYAML'
+        'fire', 'jenkinsapi', 'python-jenkins', 'PyYAML'
     ],
     entry_points='''
         [console_scripts]
