@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/hummerstudio/jenkinsclient.svg?branch=master)](https://travis-ci.com/hummerstudio/jenkinsclient)
+[![Build Status](https://img.shields.io/travis/com/hummerstudio/jenkinsclient/master?logo=travis)](https://travis-ci.com/hummerstudio/jenkinsclient)
 
 # JenkinsClient
 
