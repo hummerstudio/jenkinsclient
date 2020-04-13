@@ -8,7 +8,7 @@ A powerful cross-platform Jenkins command-line client which supports multiple in
 
 You can use pip to install jenkinsclient on PyPI, just execute following command:
 
-`pip install jenkinsclient`
+`pip3 install jenkinsclient`
 
 or manually download the source code and use setuptools:
 
