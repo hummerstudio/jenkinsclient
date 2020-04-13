@@ -25,6 +25,17 @@ class Job(object):
             return '复制任务%s到%s失败' % (from_name, to_name)
         return '复制任务%s到%s成功' % (from_name, to_name)
 
+    def create(self, job_name, config_xml):
+        """
+        创建任务
+        """
+        server = jenkins_server.get_jenkins_server()
+        try:
+            server.create_job(job_name, config_xml.strip())
+        except Exception as e:
+            return '创建任务%s失败：%s' % (job_name, str(e))
+        return '创建任务%s成功' % job_name
+
     def delete(self, job_name):
         """
         删除任务
@@ -93,3 +104,15 @@ class Job(object):
         except JenkinsException as e:
             return '重命名%s为%s失败，错误信息：%s' % (from_name, to_name, str(e))
         return '重命名%s为%s成功' % (from_name, to_name)
+
+    def xml(self, job_name):
+        """
+        获取任务的config.xml内容
+        """
+        server = jenkins_server.get_jenkins_server()
+        try:
+            config_xml = server.get_job_config(job_name)
+        except Exception as e:
+            return '获取任务%s的config.xml内容失败：%s' % (job_name, str(e))
+        return config_xml.replace(" ", "").replace("\n", "")
+
