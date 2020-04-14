@@ -3,10 +3,22 @@ import requests
 from jenkinsapi.utils.jsonp_to_json import jsonp_to_json
 from jenkinsclient import jenkins_server
 
+
 class Plugin(object):
     """
     Jenkins插件相关操作
     """
+    def has(self, plugin_name):
+        """
+        查看插件是否已安装
+        """
+        server = jenkins_server.get_jenkins_server(type='jenkinsapi')
+        has = server.has_plugin(plugin_name)
+        if has:
+            return '插件%s已安装' % plugin_name
+        else:
+            return '插件%s未安装' % plugin_name
+
     def install(self, plugin_name):
         """
         安装插件
@@ -46,13 +58,10 @@ class Plugin(object):
                                    update_center_plugins_dict[plugin_name]['version'].ljust(10),
                                    update_center_plugins_dict[plugin_name]['excerpt']))
 
-    def has(self, plugin_name):
+    def uninstall(self, plugin_name):
         """
-        查看插件是否已安装
+        卸载插件
         """
-        server = jenkins_server.get_jenkins_server(type='jenkinsapi')
-        has = server.has_plugin(plugin_name)
-        if has:
-            return '插件%s已安装' % plugin_name
-        else:
-            return '插件%s未安装' % plugin_name
+        server = jenkins_server.get_jenkins_server()
+        server.delete_plugin(plugin_name)
+        return '插件%s卸载成功' % plugin_name
