@@ -79,7 +79,10 @@ class Job(object):
         显示任务信息
         """
         server = jenkins_server.get_jenkins_server()
-        job_info = server.get_job_info(job_name)
+        try:
+            job_info = server.get_job_info(job_name)
+        except JenkinsException as e:
+            return '操作失败，错误信息：%s' % str(e)
         return job_info
 
     def ls(self):
