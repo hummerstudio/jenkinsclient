@@ -4,6 +4,7 @@ from jenkinsclient.config import Config
 from jenkinsclient.job import Job
 from jenkinsclient.plugin import Plugin
 from jenkinsclient import jenkins_server
+from jenkinsclient.queue import Queue
 
 
 class JenkinsClient(object):
@@ -15,6 +16,7 @@ class JenkinsClient(object):
         self.config = Config()
         self.job = Job()
         self.plugin = Plugin()
+        self.queue = Queue()
 
     def jobs(self):
         """
@@ -27,6 +29,13 @@ class JenkinsClient(object):
         显示插件列表
         """
         return Plugin().ls()
+
+    def queues(self):
+        """
+        查看队列
+        :return:
+        """
+        return Queue().ls()
 
     def version(self):
         """
