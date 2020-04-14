@@ -12,7 +12,8 @@ class Job(object):
         """
         server = jenkins_server.get_jenkins_server()
         build_number = server.build_job(job_name, parameters=parameters)
-        return '任务%s已触发，构建号：%d' % (job_name, build_number)
+        next_build_number = server.get_job_info(job_name)['nextBuildNumber']
+        return '任务%s已加入队列，队列ID：%d，下次构建号：%d' % (job_name, build_number, next_build_number)
 
     def copy(self, from_name, to_name):
         """
