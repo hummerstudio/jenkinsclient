@@ -4,6 +4,27 @@
 
 A powerful cross-platform Jenkins command-line client which supports multiple instances of Jennkins.
 
+# Features
+
+- Global info
+    - get Jenkins server version
+    - get whoami info
+    - get plugins info
+    - get node info
+    - get jobs info
+    - get queues info
+- Object operations
+    - Plugin
+        - list, search, install, uninstall plugin, and many more operations
+    - Job 
+        - list, build, copy, create, delete, disable, enable, rename job, and many more operations
+    - Queue
+        - list and cancel queue
+    - Build
+        - get env_vars, information, log and test report of build
+- ...
+    
+
 # Install
 
 You can use pip to install jenkinsclient on PyPI, just execute following command:

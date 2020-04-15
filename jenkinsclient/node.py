@@ -9,7 +9,6 @@ class Node(object):
     def ls(self):
         """
         查看节点列表
-        :return:
         """
         server = jenkins_server.get_jenkins_server(type="jenkinsapi")
         nodes = server.nodes
