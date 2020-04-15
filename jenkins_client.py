@@ -1,4 +1,6 @@
 import fire
+
+from jenkinsclient.executor import Executor
 from jenkinsclient.build import Build
 from jenkinsclient.config import Config
 from jenkinsclient.job import Job
@@ -15,6 +17,7 @@ class JenkinsClient(object):
     def __init__(self):
         self.build = Build()
         self.config = Config()
+        self.executor = Executor()
         self.job = Job()
         self.node = Node()
         self.plugin = Plugin()
