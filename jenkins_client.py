@@ -2,6 +2,7 @@ import fire
 from jenkinsclient.build import Build
 from jenkinsclient.config import Config
 from jenkinsclient.job import Job
+from jenkinsclient.node import Node
 from jenkinsclient.plugin import Plugin
 from jenkinsclient import jenkins_server
 from jenkinsclient.queue import Queue
@@ -15,6 +16,7 @@ class JenkinsClient(object):
         self.build = Build()
         self.config = Config()
         self.job = Job()
+        self.node = Node()
         self.plugin = Plugin()
         self.queue = Queue()
 
@@ -23,6 +25,12 @@ class JenkinsClient(object):
         显示任务列表
         """
         return Job().ls()
+
+    def nodes(self):
+        """
+        显示节点列表
+        """
+        return Node().ls()
 
     def plugins(self):
         """
