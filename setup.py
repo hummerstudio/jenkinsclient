@@ -16,7 +16,7 @@ setuptools.setup(
     py_modules=['jenkins_client'],
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Mulan Permissive Software License，Version 2",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
