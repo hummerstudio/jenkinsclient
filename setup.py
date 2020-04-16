@@ -8,7 +8,7 @@ setuptools.setup(
     version='1.0.0',
     author="TangMing",
     author_email="hummerstudio@163.com",
-    description="A powerful cross-platform Jenkins command-line client which supports multiple instances of Jennkins.",
+    description="A powerful cross-platform Jenkins command-line client which supports multiple instances of Jenkins.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/hummerstudio/jenkinsclient',
