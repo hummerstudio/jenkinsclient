@@ -10,18 +10,45 @@ class Node(object):
         """
         查看节点列表
         """
-        server = jenkins_server.get_jenkins_server(type="jenkinsapi")
-        nodes = server.nodes
-        for key in nodes.keys():
-            node = nodes[key]
-            if node.name == 'master':
-                node.name = '(master)'
-            # TODO: 后面三个数据的获取需要先修复jenkinsapi的bug
-            print(node,
-                  node.get_architecture(),
-                  node.get_available_swap_space(),
-                  node.get_temp_size(),
-                  node.get_labels())
+        server = jenkins_server.get_jenkins_server()
+        nodes = server.get_nodes()
+        print('%s%s%s%s%s%s' % ('节点名称'.ljust(27), '架构'.ljust(18), '可用交换空间'.ljust(16), '可用内存空间'.ljust(15),
+                                           '可用临时空间'.ljust(15), '可用磁盘空间'.ljust(20)))
+        print('%s%s%s%s%s%s' % ('--------'.ljust(30), '--------'.ljust(20), '--------'.ljust(20), '--------'.ljust(20),
+                                '--------'.ljust(20), '--------'.ljust(20)))
+        for node in nodes:
+            if node['name'] == 'master':
+                node['name'] = '(master)'
+            # TODO: 修复jenkinsapi的bug后，可直接调用接口
+            node_info = server.get_node_info(node['name'])
+
+            architecture = node_info['monitorData']['hudson.node_monitors.ArchitectureMonitor']
+
+            swap_space_monitor = node_info['monitorData']['hudson.node_monitors.SwapSpaceMonitor']
+            available_swap_space = swap_space_monitor['availableSwapSpace']
+            total_swap_space = swap_space_monitor['totalSwapSpace']
+            available_physical_memory = swap_space_monitor['availablePhysicalMemory']
+            total_physical_memory = swap_space_monitor['totalPhysicalMemory']
+
+            temporary_space = node_info['monitorData']['hudson.node_monitors.TemporarySpaceMonitor']['size']
+
+            disk_space = node_info['monitorData']['hudson.node_monitors.DiskSpaceMonitor']['size']
+
+            clock_diff = node_info['monitorData']['hudson.node_monitors.ClockMonitor']['diff']
+
+            swap_space = str(round(available_swap_space/1024/1024, 2)) + '/' + str(round(total_swap_space/1024/1024, 2)) + ' MB'
+            physical_memory = str(round(available_physical_memory/1024/1024, 2))\
+                              + '/' + str(round(total_physical_memory/1024/1024, 2)) + ' MB'
+
+            temporary = str(round(temporary_space/1024/1024)) + ' MB'
+            disk = str(round(disk_space/1024/1024)) + ' MB'
+
+            print('%s%s%s%s%s%s' % (node['name'].ljust(30),
+                                    architecture.ljust(20),
+                                    swap_space.ljust(20),
+                                    physical_memory.ljust(20),
+                                    temporary.ljust(20),
+                                    disk.ljust(20)))
 
     def info(self, node_name):
         """
