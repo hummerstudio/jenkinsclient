@@ -27,22 +27,50 @@ class Config(object):
     """
     def generate(self):
         """
-        从模版生成配置文件
-        :return:
+        生成配置文件模版
         """
-        with open(CONFIG_FILE_PATH, 'w') as config_file_object:
-            config_file_object.write(CONFIG_TEMPLATE)
+        if os.path.exists(CONFIG_FILE_PATH):
+            choice = input('配置文件%s已存在，确认要重新生成吗？y/n：' % CONFIG_FILE_PATH).lower()
+            yes = {'yes', 'y', 'ye', ''}
+            no = {'no', 'n'}
+            if choice in yes:
+                with open(CONFIG_FILE_PATH, 'w') as config_file_object:
+                    config_file_object.write(CONFIG_TEMPLATE)
+            else:
+                return
 
         system = platform.system()
         if system == 'Darwin':
             return_code = subprocess.call(['open', CONFIG_FILE_PATH])
             if return_code == 0:
-                return '生成配置文件%s成功' % CONFIG_FILE_PATH
+                return '生成配置文件%s成功，请在打开的编辑器中修改并保存。' % CONFIG_FILE_PATH
         elif system == 'Linux':
             return_code = subprocess.call(['vi', CONFIG_FILE_PATH])
             if return_code == 0:
-                return '生成配置文件%s成功' % CONFIG_FILE_PATH
+                return '配置文件%s保存成功' % CONFIG_FILE_PATH
         elif system == 'Windows':
             return_code = os.startfile(CONFIG_FILE_PATH)
             if return_code == 0:
-                return '生成配置文件%s成功' % CONFIG_FILE_PATH
+                return '生成配置文件%s成功，请在打开的编辑器中修改并保存。' % CONFIG_FILE_PATH
+
+    def edit(self):
+        """
+        修改配置文件
+        :return:
+        """
+        if os.path.exists(CONFIG_FILE_PATH):
+            system = platform.system()
+            if system == 'Darwin':
+                return_code = subprocess.call(['open', CONFIG_FILE_PATH])
+                if return_code == 0:
+                    return '配置文件%s已在编辑器中打开，请修改并保存。' % CONFIG_FILE_PATH
+            elif system == 'Linux':
+                return_code = subprocess.call(['vi', CONFIG_FILE_PATH])
+                if return_code == 0:
+                    return '配置文件%s保存成功' % CONFIG_FILE_PATH
+            elif system == 'Windows':
+                return_code = os.startfile(CONFIG_FILE_PATH)
+                if return_code == 0:
+                    return '配置文件%s已在编辑器中打开，请修改并保存。' % CONFIG_FILE_PATH
+        else:
+            return '配置文件%s不存在，使用jenkins config generate生成配置文件模版' % CONFIG_FILE_PATH
