@@ -62,7 +62,7 @@ try `jenkins jobs` to see all jobs on your jenkins server.
 
 try `jenkins plugins` to see all plugins on your jenkins server.
 
-## Help infomation
+## Help information
 
 Type `jenkins` to show jenkinsclient help information, or `jenkins GROUP` to view group command help information, such as `jenkins config`, `jenkins job`.like this:
 
