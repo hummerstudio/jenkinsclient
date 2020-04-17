@@ -15,13 +15,8 @@ from os.path import exists, isfile
 
 
 def get_jenkins_server(type='python-jenkins'):
-    if exists(config.CONFIG_FILE_PATH) and isfile(config.CONFIG_FILE_PATH):
-        stream = open(config.CONFIG_FILE_PATH, 'r')
-    else:
-        print('配置文件%s不存在，请先使用config generate命令生成' % config.CONFIG_FILE_PATH)
-        exit()
 
-    config_json = yaml.load(stream, Loader=yaml.FullLoader)
+    config_json = get_config_json()
 
     try:
         jenkins_servers = config_json['jenkins_servers']
@@ -40,3 +35,33 @@ def get_jenkins_server(type='python-jenkins'):
     else:
         server = Jenkins(url, username=username, password=token, timeout=30)
     return server
+
+
+def get_config_json():
+    if exists(config.CONFIG_FILE_PATH) and isfile(config.CONFIG_FILE_PATH):
+        stream = open(config.CONFIG_FILE_PATH, 'r')
+    else:
+        print('配置文件%s不存在，请先使用config generate命令生成' % config.CONFIG_FILE_PATH)
+        exit()
+    config_json = yaml.load(stream, Loader=yaml.FullLoader)
+    return config_json
+
+
+def get_url():
+    config_json = get_config_json()
+
+    try:
+        jenkins_servers = config_json['jenkins_servers']
+        use = config_json['use']
+    except KeyError as e:
+        print('配置文件格式不正确，缺少%s字段' % str(e))
+        exit()
+
+    for server in jenkins_servers:
+        if server['name'] == use:
+            url = server['url']
+    return url
+
+
+def get_blue_url():
+    return get_url() + '/blue/organizations/jenkins'

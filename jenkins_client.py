@@ -16,6 +16,7 @@ from jenkinsclient.node import Node
 from jenkinsclient.plugin import Plugin
 from jenkinsclient import jenkins_server
 from jenkinsclient.queue import Queue
+import webview
 
 
 class JenkinsClient(object):
@@ -30,6 +31,14 @@ class JenkinsClient(object):
         self.node = Node()
         self.plugin = Plugin()
         self.queue = Queue()
+
+    def app(self):
+        """
+        APP模式——在独立窗口中打开Jenkins
+        """
+        url = jenkins_server.get_blue_url()
+        webview.create_window('Jenkins', url=url, width=1024, height=768, confirm_close=True, text_select=True)
+        webview.start()
 
     def jobs(self):
         """
