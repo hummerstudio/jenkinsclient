@@ -18,7 +18,7 @@ CONFIG_TEMPLATE = """jenkins_servers:
   token: '1'
 use: default
 """
-CONFIG_FILE_PATH = os.environ['HOME'] + os.sep + '.jenkins_client.yaml'
+CONFIG_FILE_PATH = os.environ['HOME'] + os.sep + '.jenkinsclient.yaml'
 
 
 class Config(object):
@@ -38,20 +38,29 @@ class Config(object):
                     config_file_object.write(CONFIG_TEMPLATE)
             else:
                 return
+        else:
+            with open(CONFIG_FILE_PATH, 'w') as config_file_object:
+                config_file_object.write(CONFIG_TEMPLATE)
+            system = platform.system()
+            if system == 'Darwin':
+                return_code = subprocess.call(['open', CONFIG_FILE_PATH])
+                if return_code == 0:
+                    return '生成配置文件%s成功，请在打开的编辑器中修改并保存。' % CONFIG_FILE_PATH
+            elif system == 'Linux':
+                return_code = subprocess.call(['vi', CONFIG_FILE_PATH])
+                if return_code == 0:
+                    return '配置文件%s保存成功' % CONFIG_FILE_PATH
+            elif system == 'Windows':
+                return_code = os.startfile(CONFIG_FILE_PATH)
+                if return_code == 0:
+                    return '生成配置文件%s成功，请在打开的编辑器中修改并保存。' % CONFIG_FILE_PATH
 
-        system = platform.system()
-        if system == 'Darwin':
-            return_code = subprocess.call(['open', CONFIG_FILE_PATH])
-            if return_code == 0:
-                return '生成配置文件%s成功，请在打开的编辑器中修改并保存。' % CONFIG_FILE_PATH
-        elif system == 'Linux':
-            return_code = subprocess.call(['vi', CONFIG_FILE_PATH])
-            if return_code == 0:
-                return '配置文件%s保存成功' % CONFIG_FILE_PATH
-        elif system == 'Windows':
-            return_code = os.startfile(CONFIG_FILE_PATH)
-            if return_code == 0:
-                return '生成配置文件%s成功，请在打开的编辑器中修改并保存。' % CONFIG_FILE_PATH
+    def get(self, item):
+        """
+        获取配置项的值
+        """
+        if item=='url':
+            return
 
     def edit(self):
         """
@@ -73,12 +82,15 @@ class Config(object):
                 if return_code == 0:
                     return '配置文件%s已在编辑器中打开，请修改并保存。' % CONFIG_FILE_PATH
         else:
-            return '配置文件%s不存在，使用jenkins config generate生成配置文件模版' % CONFIG_FILE_PATH
+            return '配置文件%s不存在，可使用jenkins config generate命令生成配置文件模版' % CONFIG_FILE_PATH
 
     def ls(self):
         """
         显示配置信息
         """
-        with open(CONFIG_FILE_PATH, 'r') as config_file_object:
-            return config_file_object.read()
+        if os.path.exists(CONFIG_FILE_PATH):
+            with open(CONFIG_FILE_PATH, 'r') as config_file_object:
+                return config_file_object.read()
+        else:
+            return '配置文件%s不存在，可使用jenkins config generate命令生成配置文件模版' % CONFIG_FILE_PATH
 
