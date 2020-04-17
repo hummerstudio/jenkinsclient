@@ -23,7 +23,7 @@ A powerful cross-platform Jenkins command-line client which supports multiple in
     - Job 
         - list, build, copy, create, delete, disable, enable, rename job, and many more operations
     - Queue
-        - list and cancel queue
+        - list and cancel queue item
     - Build
         - get env_vars, information, log and test report of build
     
@@ -54,7 +54,7 @@ After install jenkinsclient, you can use command `jenkins` to perform many opera
 
 1. Use `jenkins config generate` to config jenkins servers.
 
-This command will generate a config file, you can modify it by yourself.
+    This command will generate a config file, you can modify it by yourself.
 
 1. Do what you want.
 

@@ -74,3 +74,11 @@ class Config(object):
                     return '配置文件%s已在编辑器中打开，请修改并保存。' % CONFIG_FILE_PATH
         else:
             return '配置文件%s不存在，使用jenkins config generate生成配置文件模版' % CONFIG_FILE_PATH
+
+    def ls(self):
+        """
+        显示配置信息
+        """
+        with open(CONFIG_FILE_PATH, 'r') as config_file_object:
+            return config_file_object.read()
+
