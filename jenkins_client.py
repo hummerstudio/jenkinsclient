@@ -7,6 +7,8 @@ You may obtain a copy of Mulan PSL v2 at:
 THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 See the Mulan PSL v2 for more details.
 """
+import os
+
 import fire
 from jenkinsclient.executor import Executor
 from jenkinsclient.build import Build
@@ -16,7 +18,6 @@ from jenkinsclient.node import Node
 from jenkinsclient.plugin import Plugin
 from jenkinsclient import jenkins_server
 from jenkinsclient.queue import Queue
-import webview
 
 
 class JenkinsClient(object):
@@ -36,9 +37,20 @@ class JenkinsClient(object):
         """
         APP模式——在独立窗口中打开Jenkins
         """
-        url = jenkins_server.get_blue_url()
-        webview.create_window('Jenkins', url=url, width=1024, height=768, confirm_close=True, text_select=True)
-        webview.start()
+        try:
+            __import__('webview')
+        except ModuleNotFoundError:
+            print('APP模式为实验性功能，需要使用pywebview模块，将自动为你安装')
+            return_code = os.system('pip3 install --quiet pywebview')
+            if return_code != 0:
+                print('自动安装pywebview失败！')
+                exit(1)
+            else:
+                print('自动安装pywebview成功')
+                import webview
+                url = jenkins_server.get_blue_url()
+                webview.create_window('Jenkins', url=url, width=1024, height=768, confirm_close=True, text_select=True)
+                webview.start()
 
     def jobs(self):
         """
