@@ -47,10 +47,11 @@ class JenkinsClient(object):
                 exit(1)
             else:
                 print('自动安装pywebview成功')
-                import webview
-                url = jenkins_server.get_blue_url()
-                webview.create_window('Jenkins', url=url, width=1024, height=768, confirm_close=True, text_select=True)
-                webview.start()
+
+        import webview
+        url = jenkins_server.get_blue_url()
+        webview.create_window('Jenkins', url=url, width=1024, height=768, confirm_close=True, text_select=True)
+        webview.start()
 
     def jobs(self):
         """
