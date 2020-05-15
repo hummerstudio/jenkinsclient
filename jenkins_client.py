@@ -10,6 +10,7 @@ See the Mulan PSL v2 for more details.
 import os
 
 import fire
+from jenkinsclient.credentials import Credentials
 from jenkinsclient.executor import Executor
 from jenkinsclient.build import Build
 from jenkinsclient.config import Config
@@ -27,6 +28,7 @@ class JenkinsClient(object):
     def __init__(self):
         self.build = Build()
         self.config = Config()
+        self.cred = Credentials()
         self.executor = Executor()
         self.job = Job()
         self.node = Node()
@@ -52,6 +54,12 @@ class JenkinsClient(object):
         url = jenkins_server.get_blue_url()
         webview.create_window('Jenkins', url=url, width=1024, height=768, confirm_close=True, text_select=True)
         webview.start()
+
+    def creds(self):
+        """
+        显示凭据列表
+        """
+        return Credentials().ls()
 
     def jobs(self):
         """
