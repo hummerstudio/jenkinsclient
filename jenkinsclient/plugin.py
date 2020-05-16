@@ -8,19 +8,17 @@ THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, E
 See the Mulan PSL v2 for more details.
 """
 import json
+import locale
+
 import requests
 from jenkinsapi.utils.jsonp_to_json import jsonp_to_json
 from jenkinsclient import jenkins_server
 
 
 class Plugin(object):
-    """
-    Jenkins插件相关操作
-    """
+    """Manage Jenkins plugins"""
     def has(self, plugin_name):
-        """
-        查看插件是否已安装
-        """
+        """Whether a plugin has installed"""
         server = jenkins_server.get_jenkins_server(type='jenkinsapi')
         has = server.has_plugin(plugin_name)
         if has:
@@ -29,10 +27,7 @@ class Plugin(object):
             return '插件%s未安装' % plugin_name
 
     def install(self, plugin_name):
-        """
-        安装插件
-        :return:
-        """
+        """Install a plugin and its dependencies"""
         server = jenkins_server.get_jenkins_server()
         restart_required = server.install_plugin(plugin_name)
         if restart_required:
@@ -41,9 +36,7 @@ class Plugin(object):
             return '插件%s安装成功并生效' % plugin_name
 
     def ls(self):
-        """
-        显示插件列表
-        """
+        """List all installed plugins"""
         server = jenkins_server.get_jenkins_server()
         plugins = server.get_plugins()
         plugins_list_content = '插件名称'.ljust(32) + '类型'.ljust(68) + '版本\n'
@@ -53,9 +46,7 @@ class Plugin(object):
         return plugins_list_content
 
     def search(self, key_word):
-        """
-        搜索插件
-        """
+        """Search update center for plugins"""
         server = jenkins_server.get_jenkins_server(type='jenkinsapi')
         update_center = 'http://updates.jenkins-zh.cn/update-center.json'
         jsonp = requests.get(update_center).content.decode('utf-8')
@@ -68,9 +59,16 @@ class Plugin(object):
                                    update_center_plugins_dict[plugin_name]['excerpt']))
 
     def uninstall(self, plugin_name):
-        """
-        卸载插件
-        """
+        """Uninstall a plugin"""
         server = jenkins_server.get_jenkins_server()
         server.delete_plugin(plugin_name)
         return '插件%s卸载成功' % plugin_name
+
+
+if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+    Plugin.__doc__ = '管理Jenkins插件'
+    Plugin.has.__doc__ = '显示插件是否已安装'
+    Plugin.install.__doc__ = '安装插件'
+    Plugin.ls.__doc__ = '显示所有已安装插件'
+    Plugin.search.__doc__ = '搜索插件'
+    Plugin.uninstall.__doc__ = '卸载插件'
