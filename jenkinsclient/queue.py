@@ -35,4 +35,4 @@ class Queue(object):
 if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
     Queue.__doc__ = '管理Jenkins队列'
     Queue.cancle.__doc__ = '取消队列中任务'
-    Queue.ls.__doc__ = '查看队列'
+    Queue.ls.__doc__ = '显示队列'

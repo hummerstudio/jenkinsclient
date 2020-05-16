@@ -7,6 +7,7 @@ You may obtain a copy of Mulan PSL v2 at:
 THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 See the Mulan PSL v2 for more details.
 """
+import locale
 import os
 
 import fire
@@ -22,9 +23,7 @@ from jenkinsclient.queue import Queue
 
 
 class JenkinsClient(object):
-    """
-    Jenkins命令行客户端
-    """
+    """A powerful cross-platform Jenkins command line client"""
     def __init__(self):
         self.build = Build()
         self.config = Config()
@@ -36,9 +35,7 @@ class JenkinsClient(object):
         self.queue = Queue()
 
     def app(self):
-        """
-        APP模式——在独立窗口中打开Jenkins
-        """
+        """app mode, operating jenkins in a window """
         try:
             __import__('webview')
         except ModuleNotFoundError:
@@ -56,47 +53,34 @@ class JenkinsClient(object):
         webview.start()
 
     def creds(self):
-        """
-        显示凭据列表
-        """
+        """List Credentials"""
         return Credentials().ls()
 
     def jobs(self):
-        """
-        显示任务列表
-        """
+        """List jobs"""
         return Job().ls()
 
     def nodes(self):
-        """
-        显示节点列表
-        """
+        """List nodes"""
         return Node().ls()
 
     def plugins(self):
-        """
-        显示插件列表
-        """
+        """List plugins"""
         return Plugin().ls()
 
     def queues(self):
-        """
-        查看队列
-        :return:
-        """
+        """List queues"""
         return Queue().ls()
 
     def version(self):
-        """
-        显示Jenkins服务器版本号
-        """
+        """Display Jenkins server version"""
         server = jenkins_server.get_jenkins_server(type='jenkinsapi')
         version = server.version
         return 'Jenkins server version: %s' % version
 
     def whoami(self):
         """
-        显示当前用户
+        Display who am i
         """
         server = jenkins_server.get_jenkins_server()
         try:
@@ -104,6 +88,18 @@ class JenkinsClient(object):
         except Exception as e:
             return '操作失败：连接服务器失败'
         return i['fullName']
+
+
+if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+    JenkinsClient.__doc__ = '功能强大的跨平台Jenkins命令行客户端'
+    JenkinsClient.app.__doc__ = 'APP模式——在独立窗口中操作Jenkins'
+    JenkinsClient.creds.__doc__ = '显示凭据列表'
+    JenkinsClient.jobs.__doc__ = '显示任务列表'
+    JenkinsClient.nodes.__doc__ = '显示节点列表'
+    JenkinsClient.plugins.__doc__ = '显示插件列表'
+    JenkinsClient.queues.__doc__ = '显示队列'
+    JenkinsClient.version.__doc__ = '显示Jenkins服务器版本号'
+    JenkinsClient.whoami.__doc__ = '显示当前用户'
 
 
 def main():

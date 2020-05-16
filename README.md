@@ -2,7 +2,7 @@
 
 # JenkinsClient
 
-A powerful cross-platform Jenkins command-line client which supports multiple instances of Jenkins.
+A powerful cross-platform Jenkins command line client which supports multiple instances of Jenkins.
 
 # Features
 
