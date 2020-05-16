@@ -7,18 +7,23 @@ You may obtain a copy of Mulan PSL v2 at:
 THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 See the Mulan PSL v2 for more details.
 """
+import locale
+
 from jenkinsclient import jenkins_server
 
 
 class Node(object):
-    """
-    Jenkins节点相关操作
-    """
+    """Manage Jenkins nodes"""
+    def info(self, node_name):
+        """Display node information"""
+        server = jenkins_server.get_jenkins_server()
+        if node_name == 'master':
+            node_name = '(master)'
+        info = server.get_node_info(node_name)
+        return info
 
     def ls(self):
-        """
-        查看节点列表
-        """
+        """List nodes"""
         server = jenkins_server.get_jenkins_server()
         nodes = server.get_nodes()
         print('%s%s%s%s%s%s' % ('节点名称'.ljust(27), '架构'.ljust(18), '可用交换空间'.ljust(16), '可用内存空间'.ljust(15),
@@ -59,12 +64,8 @@ class Node(object):
                                     temporary.ljust(20),
                                     disk.ljust(20)))
 
-    def info(self, node_name):
-        """
-        查看节点信息
-        """
-        server = jenkins_server.get_jenkins_server()
-        if node_name == 'master':
-            node_name = '(master)'
-        info = server.get_node_info(node_name)
-        return info
+
+if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+    Node.__doc__ = '管理Jenkins节点'
+    Node.info.__doc__ = '查看节点信息'
+    Node.ls.__doc__ = '查看节点列表'
