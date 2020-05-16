@@ -7,20 +7,24 @@ You may obtain a copy of Mulan PSL v2 at:
 THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 See the Mulan PSL v2 for more details.
 """
+import locale
+
 from jenkinsclient import jenkins_server
 
 
 class Executor(object):
-    """
-    Jenkins执行器相关操作
-    """
-
+    """Manage Jenkins executors"""
     def num(self, node_name):
         """
-        查看节点执行器个数
+        Display executor number of a node
         """
         server = jenkins_server.get_jenkins_server(type="jenkinsapi")
         if node_name == 'master':
             node_name = '(master)'
         executors = server.get_executors(node_name)
         print('执行器个数为: %d' % executors.count)
+
+
+if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+    Executor.__doc__ = '管理Jenkins执行器'
+    Executor.num.__doc__ = '显示节点执行器个数'
