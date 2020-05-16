@@ -7,6 +7,7 @@ You may obtain a copy of Mulan PSL v2 at:
 THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 See the Mulan PSL v2 for more details.
 """
+import locale
 import platform
 import os
 import subprocess
@@ -23,12 +24,10 @@ CONFIG_FILE_PATH = os.environ['HOME'] + os.sep + '.jenkinsclient.yaml'
 
 class Config(object):
     """
-    配置信息
+    Configure Jenkins server information
     """
     def generate(self):
-        """
-        生成配置文件模版
-        """
+        """Generate a configuration file template"""
         if os.path.exists(CONFIG_FILE_PATH):
             choice = input('配置文件%s已存在，确认要重新生成吗？y/n：' % CONFIG_FILE_PATH).lower()
             yes = {'yes', 'y', 'ye', ''}
@@ -56,17 +55,12 @@ class Config(object):
                     return '生成配置文件%s成功，请在打开的编辑器中修改并保存。' % CONFIG_FILE_PATH
 
     def get(self, item):
-        """
-        获取配置项的值
-        """
-        if item=='url':
+        """Get value of a configuration item"""
+        if item == 'url':
             return
 
     def edit(self):
-        """
-        修改配置文件
-        :return:
-        """
+        """Edit configuration"""
         if os.path.exists(CONFIG_FILE_PATH):
             system = platform.system()
             if system == 'Darwin':
@@ -85,12 +79,17 @@ class Config(object):
             return '配置文件%s不存在，可使用jenkins config generate命令生成配置文件模版' % CONFIG_FILE_PATH
 
     def ls(self):
-        """
-        显示配置信息
-        """
+        """List configuration"""
         if os.path.exists(CONFIG_FILE_PATH):
             with open(CONFIG_FILE_PATH, 'r') as config_file_object:
                 return config_file_object.read()
         else:
             return '配置文件%s不存在，可使用jenkins config generate命令生成配置文件模版' % CONFIG_FILE_PATH
 
+
+if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+    Config.__doc__ = '配置Jenkins服务器信息'
+    Config.generate.__doc__ = '生成配置文件模版'
+    Config.get.__doc__ = '获取配置项的值'
+    Config.edit.__doc__ = '修改配置文件'
+    Config.ls.__doc__ = '显示配置信息'
