@@ -7,18 +7,15 @@ You may obtain a copy of Mulan PSL v2 at:
 THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.  
 See the Mulan PSL v2 for more details.
 """
+import locale
+
 from jenkinsclient import jenkins_server
 
 
 class Credentials(object):
-    """
-    Jenkins凭据相关操作
-    """
-
+    """Manage Jenkins credentials"""
     def ls(self):
-        """
-        查看凭据列表
-        """
+        """List credentials"""
         server = jenkins_server.get_jenkins_server(type="jenkinsapi")
         credentials = server.get_credentials().credentials
         print('%s%s%s%s' % ('ID'.ljust(40), '名称'.ljust(30), '类型'.ljust(60), '描述'))
@@ -27,3 +24,7 @@ class Credentials(object):
                   str(type(credentials[credential])).ljust(60),
                   credentials[credential].description)
 
+
+if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+    Credentials.__doc__ = '管理Jenkins凭据'
+    Credentials.ls.__doc__ = '显示凭据列表'
