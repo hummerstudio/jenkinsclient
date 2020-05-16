@@ -5,7 +5,7 @@ with open("README.md", "r") as readme:
 
 setuptools.setup(
     name='jenkinsclient',
-    version='1.5.0',
+    version='1.5.1',
     author="TangMing",
     author_email="hummerstudio@163.com",
     description="A powerful cross-platform Jenkins command line client which supports multiple instances of Jenkins.",
