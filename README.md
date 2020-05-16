@@ -68,56 +68,65 @@ Type `jenkins` to show jenkinsclient help information, or `jenkins GROUP` to vie
 
 ```
 NAME
-    jenkins - Jenkins命令行客户端
+    jenkins - A powerful cross-platform Jenkins command line client
 
 SYNOPSIS
     jenkins GROUP | COMMAND
 
 DESCRIPTION
-    Jenkins命令行客户端
+    A powerful cross-platform Jenkins command line client
 
 GROUPS
     GROUP is one of the following:
 
      build
-       Jenkins构建相关操作
+       Manage builds
 
      config
-       配置信息
+       Configure Jenkins server information
+
+     cred
+       Manage Jenkins credentials
 
      executor
-       Jenkins执行器相关操作
+       Manage Jenkins executors
 
      job
-       Jenkins任务相关操作
+       Manage Jenkins jobs
 
      node
-       Jenkins节点相关操作
+       Manage Jenkins nodes
 
      plugin
-       Jenkins插件相关操作
+       Manage Jenkins plugins
 
      queue
-       Jenkins队列相关操作
+       Manage Jenkins queue
 
 COMMANDS
     COMMAND is one of the following:
 
+     app
+       app mode, operating jenkins in a window
+
+     creds
+       List Credentials
+
      jobs
-       显示任务列表
+       List jobs
 
      nodes
-       显示节点列表
+       List nodes
 
      plugins
-       显示插件列表
+       List plugins
 
      queues
-       查看队列
+       List queues
 
      version
-       显示Jenkins服务器版本号
+       Display Jenkins server version
 
      whoami
-       显示当前用户
+       Display who am i
 ```
