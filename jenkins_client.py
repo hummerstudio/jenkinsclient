@@ -90,7 +90,7 @@ class JenkinsClient(object):
         return i['fullName']
 
 
-if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+if locale.getlocale()[0] == 'zh_CN':
     JenkinsClient.__doc__ = '功能强大的跨平台Jenkins命令行客户端'
     JenkinsClient.app.__doc__ = 'APP模式——在独立窗口中操作Jenkins'
     JenkinsClient.creds.__doc__ = '显示凭据列表'

@@ -25,6 +25,6 @@ class Credentials(object):
                   credentials[credential].description)
 
 
-if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+if locale.getlocale()[0] == 'zh_CN':
     Credentials.__doc__ = '管理Jenkins凭据'
     Credentials.ls.__doc__ = '显示凭据列表'

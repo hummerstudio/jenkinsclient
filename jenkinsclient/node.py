@@ -65,7 +65,7 @@ class Node(object):
                                     disk.ljust(20)))
 
 
-if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+if locale.getlocale()[0] == 'zh_CN':
     Node.__doc__ = '管理Jenkins节点'
     Node.info.__doc__ = '查看节点信息'
     Node.ls.__doc__ = '查看节点列表'

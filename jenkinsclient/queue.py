@@ -32,7 +32,7 @@ class Queue(object):
             print('%d\t%s\t%s' % (q['id'], q['task']['url'].ljust(50), q['why']))
 
 
-if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+if locale.getlocale()[0] == 'zh_CN':
     Queue.__doc__ = '管理Jenkins队列'
     Queue.cancle.__doc__ = '取消队列中任务'
     Queue.ls.__doc__ = '显示队列'

@@ -25,6 +25,6 @@ class Executor(object):
         print('执行器个数为: %d' % executors.count)
 
 
-if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+if locale.getlocale()[0] == 'zh_CN':
     Executor.__doc__ = '管理Jenkins执行器'
     Executor.num.__doc__ = '显示节点执行器个数'

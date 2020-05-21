@@ -65,7 +65,7 @@ class Plugin(object):
         return '插件%s卸载成功' % plugin_name
 
 
-if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+if locale.getlocale()[0] == 'zh_CN':
     Plugin.__doc__ = '管理Jenkins插件'
     Plugin.has.__doc__ = '显示插件是否已安装'
     Plugin.install.__doc__ = '安装插件'

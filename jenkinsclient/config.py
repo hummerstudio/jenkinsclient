@@ -15,7 +15,7 @@ import subprocess
 CONFIG_TEMPLATE = """jenkins_servers:
 - name: default
   url: http://localhost:8080/jenkins
-  username: admin
+  username: 'admin'
   token: '1'
 use: default
 """
@@ -92,7 +92,7 @@ class Config(object):
             return '配置文件%s不存在，可使用jenkins config generate命令生成配置文件模版' % CONFIG_FILE_PATH
 
 
-if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+if locale.getlocale()[0] == 'zh_CN':
     Config.__doc__ = '配置Jenkins服务器信息'
     Config.generate.__doc__ = '生成配置文件模版'
     Config.get.__doc__ = '获取配置项的值'

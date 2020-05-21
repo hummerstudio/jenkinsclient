@@ -52,7 +52,7 @@ class Build(object):
         return report
 
 
-if locale.getlocale().__str__() == "('zh_CN', 'UTF-8')":
+if locale.getlocale()[0] == 'zh_CN':
     Build.__doc__ = 'Jenkins构建相关操作'
     Build.env.__doc__ = '显示构建环境变量'
     Build.log.__doc__ = '显示构建日志'
