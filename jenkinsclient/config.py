@@ -19,7 +19,12 @@ CONFIG_TEMPLATE = """jenkins_servers:
   token: '1'
 use: default
 """
-CONFIG_FILE_PATH = os.environ['HOME'] + os.sep + '.jenkinsclient.yaml'
+
+if platform.system() == 'Windows':
+    HOME_PATH = os.environ['HOMEPATH']
+else:
+    HOME_PATH = os.environ['HOME']
+CONFIG_FILE_PATH = HOME_PATH + os.sep + '.jenkinsclient.yaml'
 
 
 class Config(object):
