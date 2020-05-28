@@ -23,7 +23,7 @@ use: default
 if platform.system() == 'Windows':
     HOME_PATH = os.environ['HOMEPATH']
 else:
-    HOME_PATH = os.environ['HOME']
+    HOME_PATH = os.environ['HOMEDRIVE'] + os.environ['HOME']
 CONFIG_FILE_PATH = HOME_PATH + os.sep + '.jenkinsclient.yaml'
 
 
@@ -57,7 +57,7 @@ class Config(object):
             elif system == 'Windows':
                 return_code = os.startfile(CONFIG_FILE_PATH)
                 if return_code == 0:
-                    return '生成配置文件%s成功，请在打开的编辑器中修改并保存。' % CONFIG_FILE_PATH
+                    return '生成配置文件成功，请根据实际情况修改。位置：%s' % CONFIG_FILE_PATH
 
     def get(self, item):
         """Get value of a configuration item"""
