@@ -108,7 +108,7 @@ class Job(object):
         return config_xml.replace(" ", "").replace("\n", "")
 
 
-if locale.getlocale()[0] == 'zh_CN':
+if locale.getdefaultlocale()[0] == 'zh_CN':
     Job.__doc__ = '管理Jenkins任务'
     Job.build.__doc__ = '构建任务'
     Job.copy.__doc__ = '复制任务'
