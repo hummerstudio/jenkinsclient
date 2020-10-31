@@ -23,7 +23,7 @@ use: default
 if platform.system() == 'Windows':
     HOME_PATH = os.environ['HOMEPATH']
 else:
-    HOME_PATH = os.environ['HOMEDRIVE'] + os.environ['HOME']
+    HOME_PATH = os.environ['HOME']
 CONFIG_FILE_PATH = HOME_PATH + os.sep + '.jenkinsclient.yaml'
 
 

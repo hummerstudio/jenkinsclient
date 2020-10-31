@@ -11,13 +11,17 @@ import locale
 
 from jenkins import JenkinsException
 from jenkinsclient import jenkins_server
+from requests.exceptions import ConnectionError
 
 
 class Job(object):
     """Manage Jenkins jobs"""
     def build(self, job_name, parameters=None):
         """Build a job"""
-        server = jenkins_server.get_jenkins_server()
+        try:
+            server = jenkins_server.get_jenkins_server()
+        except ConnectionError as e:
+            return 'Error: %s' % str(e)
         build_number = server.build_job(job_name, parameters=parameters)
         next_build_number = server.get_job_info(job_name)['nextBuildNumber']
         return '任务%s已加入队列，队列ID：%d，下次构建号：%d' % (job_name, build_number, next_build_number)
@@ -81,7 +85,10 @@ class Job(object):
 
     def ls(self):
         """List jobs"""
-        server = jenkins_server.get_jenkins_server()
+        try:
+            server = jenkins_server.get_jenkins_server()
+        except ConnectionError as e:
+            return '无法连接到Jenkins master，请确认Jenkins服务已启动并可正常访问！'
         job_list_content = '任务名称'.ljust(26) + '类型'.ljust(28) + '链接\n'
         job_list_content += '--------'.ljust(30) + '--------'.ljust(30) + '--------\n'
         all_jobs = server.get_all_jobs()

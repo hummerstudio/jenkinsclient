@@ -12,6 +12,7 @@ from jenkinsapi.jenkins import Jenkins
 import yaml
 from jenkinsclient import config
 from os.path import exists, isfile
+from requests.exceptions import ConnectionError
 
 
 def get_jenkins_server(type='python-jenkins'):
@@ -32,8 +33,13 @@ def get_jenkins_server(type='python-jenkins'):
             token = server['token']
     if type == 'python-jenkins':
         server = jenkins.Jenkins(url, username=username, password=token, timeout=30)
+        try:
+            server.get_whoami()
+        except ConnectionError as e:
+            raise e
     else:
         server = Jenkins(url, username=username, password=token, timeout=30)
+
     return server
 
 
