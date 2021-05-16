@@ -8,9 +8,9 @@ THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, E
 See the Mulan PSL v2 for more details.
 """
 from jenkinsclient import (
-    config, jenkins_server, job, plugin
+    config, core, jenkins_server, job, plugin
 )
 
 __all__ = [
-    config, jenkins_server, job, plugin
+    config, core, jenkins_server, job, plugin
 ]

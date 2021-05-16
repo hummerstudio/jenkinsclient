@@ -11,6 +11,8 @@ import locale
 import os
 
 import fire
+
+from jenkinsclient.core import Core
 from jenkinsclient.credentials import Credentials
 from jenkinsclient.executor import Executor
 from jenkinsclient.build import Build
@@ -27,6 +29,7 @@ class JenkinsClient(object):
     def __init__(self):
         self.build = Build()
         self.config = Config()
+        self.core = Core()
         self.cred = Credentials()
         self.executor = Executor()
         self.job = Job()
