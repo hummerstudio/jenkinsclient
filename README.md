@@ -1,5 +1,7 @@
 [![Build Status](https://img.shields.io/travis/com/hummerstudio/jenkinsclient/master?logo=travis)](https://travis-ci.com/hummerstudio/jenkinsclient)
 
+[中文说明](README_zh.md)
+
 # JenkinsClient
 
 A powerful cross-platform Jenkins command line client which supports multiple instances of Jenkins.
@@ -48,7 +50,7 @@ or manually download the source code and use setuptools:
 
 # Usage
 
-After install jenkinsclient, you can use command `jenkins` to perform many operations on Jenkins server.
+After install jenkinsclient, you can use command `jenkins` or `jks` to perform many operations on Jenkins server.
 
 ## QUICK START
 
@@ -61,6 +63,8 @@ After install jenkinsclient, you can use command `jenkins` to perform many opera
 try `jenkins jobs` to see all jobs on your jenkins server.
 
 try `jenkins plugins` to see all plugins on your jenkins server.
+
+Tips: in all commands, you can replace `jenkins` with `jks` to simplify input.
 
 ## Help information
 
